@@ -1,0 +1,27 @@
+# Build artifacts
+target/
+**/*.rs.bk
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Sidecar binaries (downloaded at install time by scripts/fetch-sidecars.sh)
+# Per ADR-027, binaries are LFS Tier 2 (on-demand track) — fetched from
+# upstream releases, not committed. The .gitkeep files preserve directory shape.
+plugins/*/bin/*
+!plugins/*/bin/.gitkeep
+
+# Generated tarballs
+*.tar.gz
+dist/
+build/
+
+# Logs and runtime state
+*.log
+.state/

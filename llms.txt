@@ -1,0 +1,58 @@
+# pheno-forge-plugins
+
+> Sidecar bundle for `antinomyhq/forgecode` — local-first memory + config + tracing stack brought up as per-machine systemd units (or macOS launchd fallback).
+
+## What
+
+A tarball-installable plugin bundle for `antinomyhq/forgecode`. Six plugins (`pheno-supermemory`, `pheno-letta`, `pheno-cognee`, `pheno-mem0`, `pheno-config`, `pheno-tracing`) that spawn their respective sidecar binaries as per-machine systemd units. Zero code is injected into forgecode; everything is standard `plugin.toml` + `systemd` + shell.
+
+## When
+
+- You want forgecode sessions to have a canonical, local-first memory + config + tracing substrate.
+- You are running the Phenotype fleet and want the locked stack per `findings/2026-06-23-forgecode-improvement-plan.md`.
+- You want per-machine lifecycle (systemd), not per-session lifecycle.
+
+## When NOT
+
+- You don't use `antinomyhq/forgecode` — this bundle is forgecode-specific.
+- You want a single-binary memory solution (use `supermemory` directly).
+- You want cloud-managed memory (use `supermemory` cloud, `mem0` cloud, or `letta` cloud).
+
+## 5-line quickstart
+
+```bash
+# Linux
+curl -fsSL https://github.com/KooshaPari/pheno-forge-plugins/releases/download/v0.1.0/pheno-forge-plugins-v0.1.0.tar.gz | tar xz
+cd pheno-forge-plugins-v0.1.0
+./scripts/install.sh
+sudo systemctl enable --now pheno-forge-sidecars.target
+forge   # plugins auto-wire on session boot
+```
+
+```bash
+# macOS (launchd fallback)
+curl -fsSL https://github.com/KooshaPari/pheno-forge-plugins/releases/download/v0.1.0/pheno-forge-plugins-v0.1.0.tar.gz | tar xz
+cd pheno-forge-plugins-v0.1.0
+./scripts/install.sh
+sudo ./scripts/launch-sidecars.sh
+forge
+```
+
+## Stack
+
+| Plugin | Backend | License | Endpoint | MemoryScope (per `thegent/docs/specs/memory/v2.md`) |
+|---|---|---|---|---|
+| `pheno-supermemory` | `supermemoryai/supermemory` | source-available | `:3030` | `Episodic` (primary) |
+| `pheno-letta` | `letta-ai/letta` | Apache-2.0 | `:8283` | `Identity` (primary) |
+| `pheno-cognee` | `topoteretes/cognee` MCP | Apache-2.0 | stdio | `ProjectKnowledge` (primary) |
+| `pheno-mem0` | `mem0ai/mem0` | Apache-2.0 | `:8000` | `Fallback` (only when primary fails) |
+| `pheno-config` | `KooshaPari/Configra` | Apache-2.0 | `:9100` | n/a (config) |
+| `pheno-tracing` | `opentelemetry-collector-contrib` | Apache-2.0 | `:4317/:4318` | n/a (OTLP) |
+
+## Refs
+
+- `findings/2026-06-23-forgecode-improvement-plan.md` — master plan
+- `docs/adr/2026-06-23/ADR-096-forgecode-improvement.md` — decision
+- `thegent/docs/specs/memory/v2.md` — PR 2 SPEC
+- `thegent/docs/specs/cdylib-bridge/v1.md` — PR 3 SPEC
+- AGENTS.md § "App substrate placement" (ADR-023)

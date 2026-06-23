@@ -1,0 +1,16 @@
+# Per ADR-027 (Git LFS 3-tier policy):
+#   Tier 1 (always-track):  source code, configs, docs, ADRs, SPECs
+#   Tier 2 (on-demand):    binaries, prebuilt artifacts — fetched at install
+#   Tier 3 (never-track):  generated files, logs, state
+
+# Tier 2: sidecar binaries are fetched by scripts/fetch-sidecars.sh at install.
+# They are NOT committed to this repo. The bin/ directories contain .gitkeep
+# stubs to preserve shape; the real binaries land at install time.
+# (Uncomment to opt-in to LFS tracking for a specific binary if you vendor one.)
+#
+# plugins/pheno-supermemory/bin/supermemory filter=lfs diff=lfs merge=lfs -text
+# plugins/pheno-letta/bin/letta filter=lfs diff=lfs merge=lfs -text
+# plugins/pheno-cognee/bin/cognee-mcp filter=lfs diff=lfs merge=lfs -text
+# plugins/pheno-mem0/bin/mem0 filter=lfs diff=lfs merge=lfs -text
+# plugins/pheno-config/bin/configra filter=lfs diff=lfs merge=lfs -text
+# plugins/pheno-tracing/bin/otelcol-contrib filter=lfs diff=lfs merge=lfs -text

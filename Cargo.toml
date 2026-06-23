@@ -1,0 +1,17 @@
+[workspace]
+members = []
+resolver = "2"
+
+# This is a no-Rust workspace. The repo is a forgecode plugin bundle:
+# plugin.toml descriptors + systemd units + shell scripts. The Cargo.toml
+# exists so the repo is recognized by cargo tooling (e.g., `cargo metadata`
+# from CI runners that discover the workspace root).
+#
+# Real Rust code lives in:
+#   - thegent (thegent-memory crate) — PR 2
+#   - pheno-cdylib-bridge — PR 3
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
