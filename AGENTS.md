@@ -31,10 +31,10 @@ The plugin bundle for `antinomyhq/forgecode`. Ships 6 plugins that bring up the 
 
 - **Spec** — this file + `README.md` + per-plugin `README.md` (1-page max each)
 - **Docs** — `README.md` + this `AGENTS.md` + the per-plugin `SKILL.md` files
-- **Test matrix** — `tests/` (planned; PR 1 ships the script-level smoke tests in `scripts/`)
+- **Test matrix** — `tests/` — bats smoke tests for all lifecycle scripts (exit codes + JSON output validation)
 - **Observability** — every plugin's `pheno-*.service` is a `Type=notify` unit that exports its lifecycle to `pheno-tracing`
-- **Coverage gate** — 80% per ADR-040 (script coverage measured by `bats` test suite; planned for PR 1.1)
-- **CI gate** — `pheno-ci-templates` runs the test matrix, coverage gate, OTLP smoke test
+- **Coverage gate** — 80% per ADR-040 (script coverage measured by `bats` test suite; enforced in CI)
+- **CI gate** — `.github/workflows/ci.yml` runs shellcheck + bats on every PR; `pheno-ci-templates` for full OTLP smoke test
 - **Worklog v2.1** — `WORKLOG.md` uses the 7-column schema with `device:` field (per ADR-015 v2.1)
 
 ## PR 1 acceptance criteria

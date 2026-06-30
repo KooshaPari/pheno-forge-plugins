@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck on all shell scripts
+        run: |
+          shellcheck --version
+          find . -name '*.sh' -type f -not -path './.git/*' -print0 | xargs -0 shellcheck
+
+  test:
+    name: Bats smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bats and jq
+        run: |
+          npm install -g bats
+          sudo apt-get update && sudo apt-get install -y jq
+      - name: Run bats tests
+        run: bats tests/
