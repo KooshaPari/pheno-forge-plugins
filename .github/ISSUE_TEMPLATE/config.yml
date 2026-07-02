@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: thegent circle
+    url: https://github.com/KooshaPari/pheno-forge-plugins/discussions
+    about: For questions, design discussions, or scope clarifications, start a discussion.

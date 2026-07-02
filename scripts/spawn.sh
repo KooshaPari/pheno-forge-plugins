@@ -16,14 +16,14 @@
 
 set -euo pipefail
 
-PLUGIN_NAME="${1:-${PHENO_PLUGIN_NAME}}"
+PLUGIN_NAME="${1:-${PHENO_PLUGIN_NAME:-}}"
 if [[ -z "$PLUGIN_NAME" ]]; then
   echo "spawn.sh: PHENO_PLUGIN_NAME not set and no arg given" >&2
   exit 64
 fi
 
 # Find the plugin directory (so we can source plugin.env)
-PLUGIN_DIR="${PHENO_PLUGIN_DIR:-$(dirname "$0")/../plugins/$PLUGIN_NAME}"
+PLUGIN_DIR="${PHENO_PLUGIN_DIR:-$(cd "$(dirname "$0")" 2>/dev/null && pwd)/../plugins/$PLUGIN_NAME}"
 if [[ -f "$PLUGIN_DIR/plugin.env" ]]; then
   # shellcheck source=/dev/null
   source "$PLUGIN_DIR/plugin.env"
