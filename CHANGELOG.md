@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Notes
+- Issue #1 ("PR 2: thegent-memory polyglot facade") was filed against this
+  repo by mistake. PR 2's code lives in `KooshaPari/thegent` at
+  `crates/thegent-memory/`, not here — this repo is a no-Rust plugin bundle
+  (see `Cargo.toml` and `AGENTS.md` § "PR 1 acceptance criteria"). Re-routed
+  via the worklog entry; no source changes in this repo. See
+  `KooshaPari/thegent/issues` for the canonical PR 2 tracker.
+
 ## [0.1.0] - 2026-06-23
 
 ### Added
